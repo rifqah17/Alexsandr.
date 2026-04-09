@@ -14,66 +14,50 @@ body {
   text-align: center;
 }
 
-/* hearts */
-.heart {
+/* ORNAMEN */
+.heart, .star {
   position: fixed;
-  color: pink;
   font-size: 20px;
-  animation: fall linear infinite;
+  animation: float linear infinite;
 }
 
-@keyframes fall {
-  0% {transform: translateY(-10vh);}
-  100% {transform: translateY(110vh);}
+@keyframes float {
+  0% {transform: translateY(100vh);}
+  100% {transform: translateY(-10vh);}
 }
 
-/* girl */
-.girl {
-  width: 260px;
-  position: absolute;
-  left: -300px;
-  bottom: 0;
-  animation: walk 5s forwards;
-}
-
-@keyframes walk {
-  to {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-}
-
-/* kasih kue */
-.give {
-  animation: give 1s infinite alternate;
-}
-
-@keyframes give {
-  from { transform: translateX(-50%) scale(1); }
-  to { transform: translateX(-50%) scale(1.08); }
-}
-
-/* container */
+/* CONTAINER */
 .container {
   position: absolute;
-  top: 60%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
+/* GIF */
+img {
+  width: 250px;
+  margin-bottom: 20px;
+}
+
+/* BUTTON */
 button {
   padding: 15px 25px;
   border-radius: 20px;
   border: none;
   background: pink;
   font-size: 18px;
+  cursor: pointer;
 }
 
+/* TEXT */
 #text {
   font-size: 22px;
   max-width: 600px;
+  margin: auto;
 }
 
+/* COUNTDOWN */
 #countdown {
   font-size: 50px;
 }
@@ -82,33 +66,37 @@ button {
 
 <body>
 
-<img id="girl" class="girl"
-src="https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif">
-
 <div class="container">
+
+  <!-- GIF KAMU -->
+  <img src="birthday.gif">
+
   <div id="countdown">3</div>
   <h1>🎂 Это для тебя, Саша 💖</h1>
   <button onclick="start()">Нажми 😳</button>
   <p id="text"></p>
 </div>
 
+<!-- MUSIK -->
 <audio id="music">
   <source src="musik.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-/* hearts */
-setInterval(()=>{
-  let h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML="💖";
-  h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=(Math.random()*3+2)+"s";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),5000);
-},300);
 
-/* countdown */
+/* ORNAMEN */
+setInterval(()=>{
+  let el=document.createElement("div");
+  el.className=Math.random()>0.5?"heart":"star";
+  el.innerHTML=Math.random()>0.5?"💖":"✨";
+  el.style.left=Math.random()*100+"vw";
+  el.style.fontSize=(Math.random()*20+15)+"px";
+  el.style.animationDuration=(Math.random()*5+3)+"s";
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),7000);
+},200);
+
+/* COUNTDOWN */
 let c=3;
 let cd=document.getElementById("countdown");
 
@@ -121,7 +109,7 @@ let int=setInterval(()=>{
   }
 },1000);
 
-/* message */
+/* MESSAGE */
 const msg=[
 "С днём рождения, Саша 🎂💖",
 "",
@@ -144,14 +132,7 @@ let i=0,j=0;
 
 function start(){
   document.querySelector("button").style.display="none";
-
-  let music=document.getElementById("music");
-  music.play();
-
-  setTimeout(()=>{
-    document.getElementById("girl").classList.add("give");
-  },5000);
-
+  document.getElementById("music").play();
   type();
 }
 
