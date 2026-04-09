@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Для моего Саши 💖</title>
+<title>Для Саши 💖</title>
 
 <style>
 body {
@@ -14,7 +14,7 @@ body {
   text-align: center;
 }
 
-/* HEART */
+/* hearts */
 .heart {
   position: fixed;
   color: pink;
@@ -27,15 +27,15 @@ body {
   100% {transform: translateY(110vh);}
 }
 
-/* CONTAINER */
+/* container */
 .container {
   position: absolute;
-  top: 55%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-/* BUTTON */
+/* button */
 button {
   padding: 15px 25px;
   font-size: 18px;
@@ -45,36 +45,37 @@ button {
   cursor: pointer;
 }
 
-/* TEXT */
+/* text */
 #text {
   font-size: 22px;
   max-width: 600px;
   margin: auto;
 }
 
-/* COUNTDOWN */
+/* countdown */
 #countdown {
   font-size: 50px;
-  margin-bottom: 20px;
 }
 
-/* GIRL ANIMATION */
+/* girl */
 .girl {
-  width: 180px;
+  width: 220px;
   position: absolute;
-  left: -200px;
+  left: -250px;
   bottom: 50px;
-  animation: walkIn 4s forwards;
+  animation: walk 4s forwards;
 }
 
 /* jalan masuk */
-@keyframes walkIn {
-  0% { left: -200px; }
-  100% { left: 50%; transform: translateX(-50%); }
+@keyframes walk {
+  to {
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 /* kasih kue */
-.giveCake {
+.give {
   animation: give 1s infinite alternate;
 }
 
@@ -87,64 +88,59 @@ button {
 
 <body>
 
-<!-- CEWEK -->
-<img id="girl" class="girl" src="https://media.giphy.com/media/ASd0Ukj0y3qMM/giphy.gif">
+<!-- CEWEK LUCU (BENERAN 😭💖) -->
+<img id="girl" class="girl" 
+src="https://media.giphy.com/media/26BRuo6sLetdllPAQ/giphy.gif">
 
 <div class="container">
   <div id="countdown">3</div>
-  <h1>🎂 Это для тебя, Саша... 💖</h1>
-  <button onclick="start()">Нажми сюда 😳</button>
+  <h1>🎂 Это для тебя, Саша 💖</h1>
+  <button onclick="start()">Нажми 😳</button>
   <p id="text"></p>
 </div>
 
-<!-- 🎵 MUSIK DARI FILE KAMU -->
-<audio id="music" loop>
-  <source src="selamat-ulang-tahun-anak-anak.mp3" type="audio/mpeg">
+<!-- 🎵 MUSIK -->
+<audio id="music">
+  <source src="musik.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-/* HEART */
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.classList.add("heart");
-  heart.innerHTML = "💖";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = Math.random() * 3 + 2 + "s";
-  document.body.appendChild(heart);
+/* hearts */
+setInterval(() => {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "💖";
+  h.style.left = Math.random()*100+"vw";
+  h.style.animationDuration = (Math.random()*3+2)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),5000);
+},300);
 
-  setTimeout(() => heart.remove(), 5000);
-}
-setInterval(createHeart, 300);
+/* countdown */
+let c = 3;
+let cd = document.getElementById("countdown");
 
-/* COUNTDOWN */
-let count = 3;
-const countdownEl = document.getElementById("countdown");
-
-const countdown = setInterval(() => {
-  count--;
-  countdownEl.innerHTML = count;
-
-  if (count === 0) {
-    clearInterval(countdown);
-    countdownEl.innerHTML = "🎉";
+let interval = setInterval(()=>{
+  c--;
+  cd.innerHTML = c;
+  if(c==0){
+    clearInterval(interval);
+    cd.innerHTML="🎉";
   }
-}, 1000);
+},1000);
 
-/* MESSAGE */
-const message = [
+/* message */
+const msg = [
 "С днём рождения, Саша 🎂💖",
 "",
 "Сегодня особенный день...",
 "",
-"Я желаю тебе здоровья, счастья,",
-"и чтобы всё в твоей жизни было легко ✨",
+"Я желаю тебе счастья и здоровья ✨",
 "",
-"Пусть твоя карьера становится только лучше 😤💖",
+"Пусть твоя жизнь будет наполнена хорошими моментами 💫",
 "",
 "Hubby… ты иногда вредный 😭",
 "Но я всё равно тебя люблю 💕",
-"",
-"Теперь смотри внимательно 👀",
 "",
 "СКОРЕЕ ПРИЕЗЖАЙ КО МНЕ 😭💖",
 "Я ЖДУ ТЕБЯ!!!",
@@ -152,37 +148,38 @@ const message = [
 "Я люблю тебя, hubby 💖"
 ];
 
-let i = 0;
-let j = 0;
+let i=0,j=0;
 
-function start() {
-  document.querySelector("button").style.display = "none";
-  document.getElementById("music").play();
+function start(){
+  document.querySelector("button").style.display="none";
 
-  // animasi kasih kue setelah jalan
-  setTimeout(() => {
-    document.getElementById("girl").classList.add("giveCake");
-  }, 4000);
+  let music = document.getElementById("music");
+  music.play().catch(()=>{});
 
-  typeWriter();
+  setTimeout(()=>{
+    document.getElementById("girl").classList.add("give");
+  },4000);
+
+  type();
 }
 
-/* TYPING */
-function typeWriter() {
-  if (i < message.length) {
-    if (j < message[i].length) {
-      document.getElementById("text").innerHTML += message[i].charAt(j);
+function type(){
+  if(i<msg.length){
+    if(j<msg[i].length){
+      document.getElementById("text").innerHTML+=msg[i][j];
       j++;
-      setTimeout(typeWriter, 50);
-    } else {
-      document.getElementById("text").innerHTML += "<br><br>";
-      j = 0;
-      i++;
-      setTimeout(typeWriter, 500);
+      setTimeout(type,50);
+    }else{
+      document.getElementById("text").innerHTML+="<br><br>";
+      j=0;i++;
+      setTimeout(type,500);
     }
   }
 }
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
