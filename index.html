@@ -8,8 +8,8 @@
 body {
   margin: 0;
   overflow: hidden;
-  font-family: 'Comic Sans MS', cursive;
   background: black;
+  font-family: 'Comic Sans MS', cursive;
   color: white;
   text-align: center;
 }
@@ -27,46 +27,15 @@ body {
   100% {transform: translateY(110vh);}
 }
 
-/* container */
-.container {
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/* button */
-button {
-  padding: 15px 25px;
-  font-size: 18px;
-  border-radius: 20px;
-  border: none;
-  background: pink;
-  cursor: pointer;
-}
-
-/* text */
-#text {
-  font-size: 22px;
-  max-width: 600px;
-  margin: auto;
-}
-
-/* countdown */
-#countdown {
-  font-size: 50px;
-}
-
 /* girl */
 .girl {
-  width: 220px;
+  width: 260px;
   position: absolute;
-  left: -250px;
-  bottom: 50px;
-  animation: walk 4s forwards;
+  left: -300px;
+  bottom: 0;
+  animation: walk 5s forwards;
 }
 
-/* jalan masuk */
 @keyframes walk {
   to {
     left: 50%;
@@ -81,16 +50,40 @@ button {
 
 @keyframes give {
   from { transform: translateX(-50%) scale(1); }
-  to { transform: translateX(-50%) scale(1.1); }
+  to { transform: translateX(-50%) scale(1.08); }
+}
+
+/* container */
+.container {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+button {
+  padding: 15px 25px;
+  border-radius: 20px;
+  border: none;
+  background: pink;
+  font-size: 18px;
+}
+
+#text {
+  font-size: 22px;
+  max-width: 600px;
+}
+
+#countdown {
+  font-size: 50px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- CEWEK LUCU (BENERAN 😭💖) -->
-<img id="girl" class="girl" 
-src="https://media.giphy.com/media/26BRuo6sLetdllPAQ/giphy.gif">
+<img id="girl" class="girl"
+src="https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif">
 
 <div class="container">
   <div id="countdown">3</div>
@@ -99,50 +92,49 @@ src="https://media.giphy.com/media/26BRuo6sLetdllPAQ/giphy.gif">
   <p id="text"></p>
 </div>
 
-<!-- 🎵 MUSIK -->
 <audio id="music">
   <source src="musik.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 /* hearts */
-setInterval(() => {
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.innerHTML = "💖";
-  h.style.left = Math.random()*100+"vw";
-  h.style.animationDuration = (Math.random()*3+2)+"s";
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💖";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(Math.random()*3+2)+"s";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),5000);
 },300);
 
 /* countdown */
-let c = 3;
-let cd = document.getElementById("countdown");
+let c=3;
+let cd=document.getElementById("countdown");
 
-let interval = setInterval(()=>{
+let int=setInterval(()=>{
   c--;
-  cd.innerHTML = c;
+  cd.innerHTML=c;
   if(c==0){
-    clearInterval(interval);
+    clearInterval(int);
     cd.innerHTML="🎉";
   }
 },1000);
 
 /* message */
-const msg = [
+const msg=[
 "С днём рождения, Саша 🎂💖",
 "",
 "Сегодня особенный день...",
 "",
 "Я желаю тебе счастья и здоровья ✨",
 "",
-"Пусть твоя жизнь будет наполнена хорошими моментами 💫",
+"Пусть твоя жизнь будет наполнена радостью 💫",
 "",
-"Hubby… ты иногда вредный ",
+"Hubby… ты иногда вредный 😭",
 "Но я всё равно тебя люблю 💕",
 "",
-"СКОРЕЕ ПРИЕЗЖАЙ КО МНЕ 💖",
+"СКОРЕЕ ПРИЕЗЖАЙ КО МНЕ 😭💖",
 "Я ЖДУ ТЕБЯ!!!",
 "",
 "Я люблю тебя, hubby 💖"
@@ -153,12 +145,12 @@ let i=0,j=0;
 function start(){
   document.querySelector("button").style.display="none";
 
-  let music = document.getElementById("music");
-  music.play().catch(()=>{});
+  let music=document.getElementById("music");
+  music.play();
 
   setTimeout(()=>{
     document.getElementById("girl").classList.add("give");
-  },4000);
+  },5000);
 
   type();
 }
@@ -177,9 +169,6 @@ function type(){
   }
 }
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
